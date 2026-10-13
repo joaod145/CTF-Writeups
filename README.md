@@ -1,3 +1,7 @@
-# CTF-Writeups
+# CTF Writeups
 
-This repository contains notes and write-ups from completed Capture The Flag (CTF) exercises.
+Coleção de writeups de alguns CTFs que fui realizando.
+
+**Nota:** Ainda tenho alguns writeups por organizar e formatar para ficarem minimamente legíveis. Por enquanto, é um *work in progress* 🙃
+
+Encontraram algum erro ou têm alguma dúvida? Sintam-se à vontade para trocar ideias ou sugerir correções :)
