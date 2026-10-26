@@ -226,3 +226,46 @@ Durante essa análise, foi encontrada uma referência à rota `/score-board` num
 Bingo ! Após testar o URL, foi possível aceder à *Score Board* e consultar a interface utilizada para acompanhar os próximos desafios.
 
 ## 2. Desafios de 1 estrela (★)
+
+### 2.1 DOM XSS
+**Categoria:** A05:2025 — Injection
+
+DOM XSS (Document Object Model Cross-Site Scripting) é uma vulnerabilidade de segurança web que pode permitir a execução de JavaScript malicioso no navegador de uma vítima, devido à forma como o código JavaScript da aplicação processa dados não confiáveis e manipula o DOM.
+
+O **DOM** trata-se de uma representação da página HTML que o navegador cria em memória. Esta estrutura permite que o JavaScript aceda aos elementos da página e os consulte/modifique.
+
+Por sua vez, **XSS** corresponde a uma vulnerabilidade que permite que conteúdo controlado por um atacante seja interpretado de forma a executar código JavaScript no contexto de uma página web.
+
+Assim, o DOM XSS é uma forma de XSS em que a vulnerabilidade resulta do processamento inseguro de dados no lado do cliente, através da manipulação do DOM.
+
+O objetivo deste desafio passa por demonstrar que uma entrada controlada pelo utilizador pode levar à execução de JavaScript no navegador.
+
+Para o resolver é necessário introduzir um payload que permita demonstrar a execução de JavaScript na aplicação. O payload utilizado é o seguinte:
+
+```html
+<iframe src="javascript:alert(`xss`)">
+```
+
+Numa primeira análise da interface da Juice Shop, a barra de pesquisa aparenta ser um ponto de entrada adequado, uma vez que permite introduzir texto fornecido pelo utilizador.
+
+Ao introduzir o payload na barra de pesquisa e submeter a pesquisa, surge uma janela de alerta com a mensagem `xss`. Este comportamento demonstra que o navegador executou o JavaScript presente no payload, evidenciando a vulnerabilidade explorada pelo desafio.
+
+Após a execução do payload, podemos inspecionar o HTML da página através das ferramentas de programador do navegador. No elemento correspondente ao valor da pesquisa, encontramos o conteúdo introduzido:
+
+```html
+<span _ngcontent-ng-c1161564479="" id="searchValue">
+  <iframe src="javascript:alert(`xss`)"></iframe>
+</span>
+```
+
+Este elemento mostra que o payload foi inserido no DOM como um elemento HTML `iframe`, em vez de ser apresentado apenas como texto.
+
+A execução do código JavaScript associado ao atributo `src` desencadeia a janela de alerta. Este comportamento demonstra como a interpretação insegura de conteúdo controlado pelo utilizador pode permitir a execução de JavaScript no navegador.
+
+### 2.2 Bonus Payload
+**Categoria:** A05:2025 — Injection
+
+A resolução é praticamente idêntica à do exercício 2.1 (DOM XSS). A diferença? Um payload ligeiramente diferente e mais divertido :)
+
+### 2.3 Privacy Policy
+**Categoria:**
